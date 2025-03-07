@@ -1,0 +1,9 @@
+import express from "express";
+import { getCredential, ValidateUser } from "../Controllers/StoreValidate.js";
+
+const router = express.Router();
+
+router.post("/set_credentials", ValidateUser);
+router.get("/get_credential",getCredential)
+
+export default router;
