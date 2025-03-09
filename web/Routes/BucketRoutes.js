@@ -4,4 +4,4 @@ export const bucketRouter = express.Router();
 
 
 bucketRouter.post("/create_bucket",createBucket);
-bucketRouter.get("/checkingBucket",createBucketOnCron)
+bucketRouter.post("/checkingBucket",createBucketOnCron)

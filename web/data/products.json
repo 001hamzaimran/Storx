@@ -716,7 +716,7 @@
     "status": "active",
     "tags": "",
     "template_suffix": null,
-    "updated_at": "2025-03-06T01:28:01-05:00",
+    "updated_at": "2025-03-08T05:28:50-05:00",
     "variants": [
       {
         "barcode": null,
@@ -1712,7 +1712,7 @@
     "status": "active",
     "tags": "",
     "template_suffix": null,
-    "updated_at": "2025-03-06T01:27:58-05:00",
+    "updated_at": "2025-03-08T11:55:35-05:00",
     "variants": [
       {
         "barcode": null,
@@ -3087,8 +3087,8 @@
     ],
     "options": [
       {
-        "product_id": 8146657247432,
         "id": 10275166650568,
+        "product_id": 8146657247432,
         "name": "Title",
         "position": 1,
         "values": [
@@ -3606,7 +3606,7 @@
     "status": "active",
     "tags": "",
     "template_suffix": null,
-    "updated_at": "2025-03-06T01:27:59-05:00",
+    "updated_at": "2025-03-08T05:28:49-05:00",
     "variants": [
       {
         "barcode": null,

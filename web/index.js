@@ -52,14 +52,14 @@ app.get("/api/test", (req, res) => {
 });
 
 app.use("/api", router);
+app.use("/postman", router);
 app.use("/api", cronRouter);
-app.use("/api",bucketRouter);
-app.use("/api",prodRouter);
+app.use("/api", bucketRouter);
+app.use("/api", prodRouter);
+console.log("PORT ",PORT);
 
 // _____CronJob______
 
-
-  
 // _____CronJob______
 
 // ____________STORE_INFO_______________

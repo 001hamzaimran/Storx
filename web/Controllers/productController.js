@@ -60,3 +60,23 @@ export const saveProducts = async (req, res) => {
     res.status(500).json({ error: "Failed to save products" });
   }
 };
+export const saveMeta = async (req, res) => {
+  try {
+    const { Meta } = req.body;
+    if (!Meta) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Meta does not found" });
+    }
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    const filePath = path.join(__dirname, "../data/Metas.json");
+    fs.writeFileSync(filePath, JSON.stringify(Meta, null, 2));
+    res.json({ message: "Meta saved successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to save Meta" });
+  }
+};

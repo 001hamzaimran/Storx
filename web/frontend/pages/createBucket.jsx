@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux';
 
 export default function CreateBucket() {
     const storeDetail = useSelector((state) => state.store.StoreDetail);
+    const backupDetail = useSelector((state) => {
+        console.log("Redux State:", state.backup);
+        return state.backup;
+    })
     const [backupFrequency, setBackupFrequency] = useState('daily');
     const [backupTime, setBackupTime] = useState('00:00');
 
@@ -15,10 +19,18 @@ export default function CreateBucket() {
         getCronjob();
     }, []);
 
-    const checkingBucket = async () => {
+    const creatingBucket = async () => {
         try {
             const response = await fetch(`/api/checkingBucket?storeId=${storeDetail.StoreId}`,
-                { method: 'GET' }
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        Products: backupDetail.Products
+                    })
+                }
             )
             const data = await response.json()
             console.log("Bucket", data);
@@ -58,8 +70,8 @@ export default function CreateBucket() {
 
             const data = await response.json();
             console.log("Set Cron Job ", data, backupTime);
-            checkingBucket();
-            
+            creatingBucket();
+
             toast.success(data.message + " on a " + backupFrequency + " basis at " + backupTime);
         } catch (error) {
             console.log(error);
