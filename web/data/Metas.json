@@ -1,0 +1,15 @@
+[
+  {
+    "key": "magic_tone_product_description",
+    "namespace": "magic",
+    "value": "{\"tone\":\"expert\",\"toneDescription\":\"\"}",
+    "created_at": "2025-01-23T03:38:15-05:00",
+    "description": null,
+    "id": 37992583495880,
+    "owner_id": 67344269512,
+    "owner_resource": "shop",
+    "type": "json",
+    "updated_at": "2025-01-23T03:38:15-05:00",
+    "admin_graphql_api_id": "gid://shopify/Metafield/37992583495880"
+  }
+]

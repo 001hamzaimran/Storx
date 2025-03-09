@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.758.0",
+    "@json2csv/node": "^7.0.6",
     "@reduxjs/toolkit": "^2.6.0",
     "@shopify/shopify-app-express": "^5.0.8",
     "@shopify/shopify-app-session-storage-sqlite": "^4.0.8",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
+    "json2csv": "^6.0.0-alpha.2",
     "mongoose": "^8.12.1",
     "node-cron": "^3.0.3",
     "react-hot-toast": "^2.5.2",

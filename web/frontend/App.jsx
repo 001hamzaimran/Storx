@@ -69,11 +69,11 @@ export default function App() {
       const Meta = data.Meta.data;
 
       if (Meta.length > 0) {
-        // console.log("Meta data", Meta); // ✅ Log updated data
+        console.log("Meta data", Meta); // ✅ Log updated data
         dispatch(setMeta(Meta));
         saveMeta(Meta); 
       }
-      console.log("Meta data", data.Meta.data);
+      // console.log("Meta data", data.Meta.data);
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +99,7 @@ export default function App() {
           <>
             <NavMenu>
               <Link to="/" rel="home" />
-              <Link to="/createBucket" element={<CreateBucket />}>Create Buckets</Link>
+              <Link to="/createBucket" element={<CreateBucket />}>Set Backup Time</Link>
               <Link to="/product" element={<product />}>Check Products</Link>
             </NavMenu>
             <Routes pages={pages} />

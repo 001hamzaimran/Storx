@@ -18,12 +18,12 @@ export const saveProducts = async (products) => {
     console.log("Error saving products:", error);
   }
 };
-export const saveMeta = async (Meta) => {
+export const saveMeta = async (Metas) => {
   try {
     const response = await fetch("/api/save_Meta", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ Meta }),
+      body: JSON.stringify({ Meta: Metas }),
     });
     const result = await response.json();
     console.log("Save Response:", result);
@@ -39,30 +39,22 @@ export default function Index() {
   const [endpoint, setEndpoint] = useState('');
   const [loadingData, setloadingData] = useState(false)
   const storeDetail = useSelector((state) => state.store.StoreDetail);
-  const backupDetail = useSelector((state) => {
-    console.log("Redux State:", state);
-    return state.backup?.Products || [];
-  });
+
 
   const navigate = useNavigate();
-  useEffect(() => {
-    getCredential();
-    console.log("BackUp Detail", backupDetail)
-    // checkingBucket();
-  }, [])
 
 
-  const checkingBucket = async () => {
-    try {
-      const response = await fetch(`/api/checkingBucket?storeId=${storeDetail.StoreId}`,
-        { method: 'GET' }
-      )
-      const data = await response.json()
-      console.log("Bucket", data);
-    } catch (error) {
-      console.log("Errore ", error)
-    }
-  }
+  // const checkingBucket = async () => {
+  //   try {
+  //     const response = await fetch(`/api/checkingBucket?storeId=${storeDetail.StoreId}`,
+  //       { method: 'GET' }
+  //     )
+  //     const data = await response.json()
+  //     console.log("Bucket", data);
+  //   } catch (error) {
+  //     console.log("Errore ", error)
+  //   }
+  // }
 
 
 
@@ -96,6 +88,7 @@ export default function Index() {
         navigate('/createBucket');
       }, 3000);
     } catch (error) {
+      toast.error("Failed to set credentials. Please try again.");
       console.log(error)
     } finally {
       setAccessKey('');
@@ -105,43 +98,48 @@ export default function Index() {
   };
 
 
-
-  const getCredential = async () => {
-    setloadingData(true)
-    try {
-      if (!storeDetail?.StoreId) {
-        console.log("Store ID is missing!");
-        return;
-      }
-      const response = await fetch(`/api/get_credential?storeId=${storeDetail.StoreId}`, {
-        method: 'GET',
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const text = await response.text(); // Read raw response first
-      if (!text) {
-        throw new Error("Empty response body");
-      }
-
-      const data = JSON.parse(text); // Parse JSON manually
-      console.log("Get Credentials ", data);
-
-      // const data = await response.json();
-      // console.log("Get Credentials ", data)
-
-      setAccessKey(data.Store.Storx_Acces_Key);
-      setSecretKey(data.Store.Storx_Secret_Key);
-      setEndpoint(data.Store.Storx_Endpoint);
-
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setloadingData(false)
+  useEffect(() => {
+    if (storeDetail) {
+      setAccessKey(storeDetail.Storx_Acces_Key || '');
+      setSecretKey(storeDetail.Storx_Secret_Key || '');
+      setEndpoint(storeDetail.Storx_Endpoint || '');
     }
-  }
+  }, [storeDetail]);
+
+  // const getCredential = async () => {
+  //   setloadingData(true)
+  //   try {
+  //     if (!storeDetail?.StoreId) {
+  //       console.log("Store ID is missing!");
+  //       return;
+  //     }
+  //     const response = await fetch(`/api/get_credential?storeId=${storeDetail.StoreId}`, {
+  //       method: 'GET',
+  //     })
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+
+  //     const text = await response.text(); // Read raw response first
+  //     if (!text) {
+  //       throw new Error("Empty response body");
+  //     }
+
+  //     const data = JSON.parse(text); // Parse JSON manually
+  //     console.log("Get Credentials ", data);
+
+  //     // const data = await response.json();
+  //     // console.log("Get Credentials ", data)
+
+
+
+  //   } catch (err) {
+  //     console.log(err)
+  //   } finally {
+  //     setloadingData(false)
+  //   }
+  // }
 
   return (
     <Page title="Storx Configuration">
