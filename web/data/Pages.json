@@ -1,0 +1,15 @@
+[
+  {
+    "admin_graphql_api_id": "gid://shopify/Page/106141417672",
+    "author": null,
+    "body_html": null,
+    "created_at": "2024-12-05T05:14:36-05:00",
+    "handle": "contact",
+    "id": 106141417672,
+    "published_at": "2024-12-05T05:14:36-05:00",
+    "shop_id": 67344269512,
+    "template_suffix": "contact",
+    "title": "Contact",
+    "updated_at": "2024-12-05T05:14:36-05:00"
+  }
+]

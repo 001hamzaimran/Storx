@@ -11,13 +11,14 @@ export default function CreateBucket() {
     })
     const [backupFrequency, setBackupFrequency] = useState('daily');
     const [backupTime, setBackupTime] = useState('00:00');
+    const [Submitting, setSubmitting] = useState(false);
 
     const handleBackupFrequencyChange = useCallback((value) => setBackupFrequency(value), []);
     const handleBackupTimeChange = useCallback((value) => setBackupTime(value), []);
 
-    useEffect(() => {
-        getCronjob();
-    }, []);
+    // useEffect(() => {
+    //     getCronjob();
+    // }, []);
 
     const creatingBucket = async () => {
         try {
@@ -53,6 +54,7 @@ export default function CreateBucket() {
     };
 
     const handleSubmit = async () => {
+        setSubmitting(true);
         try {
             const response = await fetch("/api/set_cron", {
                 method: 'POST',
@@ -74,7 +76,10 @@ export default function CreateBucket() {
 
             toast.success(data.message + " on a " + backupFrequency + " basis at " + backupTime);
         } catch (error) {
+            toast.error("Failed to set cron job. Please try again.");
             console.log(error);
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -113,7 +118,7 @@ export default function CreateBucket() {
                             </div>
                         </div>
                         <div style={{ marginTop: '1rem' }}>
-                            <Button primary onClick={handleSubmit}>Set Schedule</Button>
+                            <Button primary onClick={handleSubmit} loading={Submitting} disabled={Submitting}>Set Schedule</Button>
                         </div>
                     </Card>
                 </Layout.Section>

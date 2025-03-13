@@ -32,11 +32,24 @@ export const ValidateUser = async (req, res) => {
 
       await store.save();
       res.status(200).json({ success: true, message: "Store validated" });
-    } else {
-      res
-        .status(200)
-        .json({ success: true, message: "Store already validated" });
     }
+    const updatedStore = await Store.findOneAndUpdate(
+      { StoreId }, // The condition to find the store
+      {
+        Store_name,
+        Store_domain,
+        Storx_Acces_Key,
+        Storx_Secret_Key,
+        Storx_Endpoint,
+      },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Store updated successfully",
+      updatedStore,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Something went wrong" });

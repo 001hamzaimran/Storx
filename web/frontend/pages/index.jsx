@@ -12,12 +12,31 @@ export const saveProducts = async (products) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ Product: products }),
     });
+
+    const text = await response.text(); // Read as text first
+    console.log("Raw response:", text);
+
+    const result = JSON.parse(text); // Now parse as JSON
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving products:", error);
+  }
+};
+
+export const saveCustomer = async (customerss) => {
+  try {
+    const response = await fetch("/api/save_customers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Customer: customerss }),
+    });
     const result = await response.json();
     console.log("Save Response:", result);
   } catch (error) {
     console.log("Error saving products:", error);
   }
 };
+
 export const saveMeta = async (Metas) => {
   try {
     const response = await fetch("/api/save_Meta", {
@@ -32,6 +51,90 @@ export const saveMeta = async (Metas) => {
   }
 };
 
+export const saveBlog = async (Blogs) => {
+  try {
+    const response = await fetch("/api/save_Blog", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Blog: Blogs }),
+    });
+    const result = await response.json();
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving products:", error);
+  }
+};
+
+export const saveTheme = async (Themes) => {
+  try {
+    const response = await fetch("/api/save_Theme", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Theme: Themes }),
+    });
+    const result = await response.json();
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving products:", error);
+  }
+};
+
+export const savePages = async (Pages) => {
+  try {
+    const response = await fetch("/api/save_Pages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Page: Pages }),
+    });
+    const result = await response.json();
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving products:", error);
+  }
+};
+
+export const saveSmartCollection = async (SmartCollections) => {
+  try {
+    const response = await fetch("/api/save_SmartCollection", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ SmartCollection: SmartCollections }),
+    });
+    const result = await response.json();
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving products:", error);
+  }
+};
+
+export const saveCustomCollection = async (CustomCollections) => {
+  try {
+    const response = await fetch("/api/save_CustomCollection", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ CustomCollection: CustomCollections }),
+    });
+    const result = await response.json();
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving products:", error);
+  }
+}
+
+export const saveOrders = async(Orders) =>{
+  try {
+    const response = await fetch("/api/save_Orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Orders: Orders }),
+    });
+    const result = await response.json();
+    console.log("Save Response:", result);
+  } catch (error) {
+    console.log("Error saving Orders:", error);
+  }
+}
+
 
 export default function Index() {
   const [accessKey, setAccessKey] = useState('');
@@ -43,28 +146,12 @@ export default function Index() {
 
   const navigate = useNavigate();
 
-
-  // const checkingBucket = async () => {
-  //   try {
-  //     const response = await fetch(`/api/checkingBucket?storeId=${storeDetail.StoreId}`,
-  //       { method: 'GET' }
-  //     )
-  //     const data = await response.json()
-  //     console.log("Bucket", data);
-  //   } catch (error) {
-  //     console.log("Errore ", error)
-  //   }
-  // }
-
-
-
-
-
   const handleAccessKeyChange = useCallback((value) => setAccessKey(value), []);
   const handleSecretKeyChange = useCallback((value) => setSecretKey(value), []);
   const handleEndpointChange = useCallback((value) => setEndpoint(value), []);
 
   const handleSubmit = async () => {
+    setloadingData(true)
     try {
       const response = await fetch("/api/set_credentials", {
         method: 'POST',
@@ -83,14 +170,21 @@ export default function Index() {
 
       const data = await response.json();
       console.log("Set Credentials ", data)
-      toast.success(data.message + " Redirecting ..", { duration: 3000 });
-      setTimeout(() => {
-        navigate('/createBucket');
-      }, 3000);
+      if (data.success) {
+        toast.success(data.message + " Redirecting ..", { duration: 3000 });
+        setTimeout(() => {
+          navigate('/createBucket');
+        }, 3000);
+      } else {
+        toast.error(data.message, { duration: 3000 });
+      }
+
+
     } catch (error) {
       toast.error("Failed to set credentials. Please try again.");
       console.log(error)
     } finally {
+      setloadingData(false)
       setAccessKey('');
       setSecretKey('');
       setEndpoint('');
@@ -105,41 +199,6 @@ export default function Index() {
       setEndpoint(storeDetail.Storx_Endpoint || '');
     }
   }, [storeDetail]);
-
-  // const getCredential = async () => {
-  //   setloadingData(true)
-  //   try {
-  //     if (!storeDetail?.StoreId) {
-  //       console.log("Store ID is missing!");
-  //       return;
-  //     }
-  //     const response = await fetch(`/api/get_credential?storeId=${storeDetail.StoreId}`, {
-  //       method: 'GET',
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     const text = await response.text(); // Read raw response first
-  //     if (!text) {
-  //       throw new Error("Empty response body");
-  //     }
-
-  //     const data = JSON.parse(text); // Parse JSON manually
-  //     console.log("Get Credentials ", data);
-
-  //     // const data = await response.json();
-  //     // console.log("Get Credentials ", data)
-
-
-
-  //   } catch (err) {
-  //     console.log(err)
-  //   } finally {
-  //     setloadingData(false)
-  //   }
-  // }
 
   return (
     <Page title="Storx Configuration">
@@ -165,7 +224,7 @@ export default function Index() {
           autoComplete="off"
         />
         <div style={{ marginTop: '1rem' }}>
-          <Button primary onClick={handleSubmit} disabled={loadingData}>Submit</Button>
+          <Button primary onClick={handleSubmit} loading={loadingData} disabled={loadingData}>Submit</Button>
         </div>
       </Card>
     </Page>
