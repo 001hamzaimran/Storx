@@ -106,7 +106,7 @@ export const createBucketOnCron = async (req, res) => {
           }`;
 
           const bucketName =
-            `backup-${storeId}-${formattedDate}-${formattedTime}`.toLowerCase();
+            `Backup-${formattedDate}-${formattedTime}`.toLowerCase();
           console.log(`Running backup for store: ${storeId} at ${bucketName}`);
 
           // Create Bucket

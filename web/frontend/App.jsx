@@ -4,13 +4,14 @@ import { NavMenu } from "@shopify/app-bridge-react";
 import Routes from "./Routes";
 
 import { QueryProvider, PolarisProvider } from "./components";
-import CreateBucket from "./pages/CreateBucket.jsx";
+import CreateBucket from "./pages/createBucket.jsx";
 import Buckets from "./pages/Buckets.jsx";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setStoreDetail } from "./redux/slices/StoreSlice.js";
 import { setMeta, setProducts } from "./redux/slices/BackupSlice.js";
 import { saveBlog, saveCustomCollection, saveCustomer, saveMeta, saveOrders, savePages, saveProducts, saveSmartCollection, saveTheme } from "./pages/index.jsx";
+import { Spinner } from "@shopify/polaris";
 export default function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -246,7 +247,9 @@ export default function App() {
     <PolarisProvider>
       <QueryProvider>
         {loading ? (
-          <div>Loading...</div>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+            <Spinner accessibilityLabel="Loading store data" size="large" />
+          </div>
         ) : (
           <>
             <NavMenu>
