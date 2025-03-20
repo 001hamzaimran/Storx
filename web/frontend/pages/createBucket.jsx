@@ -122,7 +122,9 @@ export default function CreateBucket() {
                                 />
                             </div>
                         </div>
-                         
+                        <div style={{ marginTop: '1rem' }}>
+                            <Button primary onClick={handleSubmit} loading={Submitting} disabled={Submitting || !storeFetched}>Set Schedule</Button>
+                        </div>
                     </Card>
                 </Layout.Section>
             </Layout>
