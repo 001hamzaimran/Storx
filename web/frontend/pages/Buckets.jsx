@@ -95,17 +95,42 @@ const Buckets = () => {
     ListFiles(bucket.Name);
   };
 
+
   const handleDelete = async (bucketName) => {
-    setDeleting(true);
-    await handleEmpty(bucketName);
+    setDeleting(bucketName);
+
     try {
-      await fetch(`/api/delete_bucket?bucketName=${bucketName}&storeId=${storeDetail.StoreId}`, { method: "DELETE" });
-      ListBuckets();
-      toast.success("Bucket deleted successfully");
+      const emptyBucketRequest = fetch(
+        `/api/empty_Bucket?bucketName=${bucketName}&storeId=${storeDetail.StoreId}`,
+        { method: "DELETE" }
+      );
+
+      const deleteBucketRequest = fetch(
+        `/api/delete_bucket?bucketName=${bucketName}&storeId=${storeDetail.StoreId}`,
+        { method: "DELETE" }
+      );
+
+      // Run both API calls in parallel
+      const results = await Promise.allSettled([emptyBucketRequest, deleteBucketRequest]);
+
+      const emptyBucketStatus = results[0].status;
+      const deleteBucketStatus = results[1].status;
+
+      if (deleteBucketStatus === "fulfilled") {
+        toast.success("Bucket deleted successfully");
+        ListBuckets(); // Refresh the bucket list
+      } else {
+        toast.error("Failed to delete bucket");
+      }
+
+      if (emptyBucketStatus === "rejected") {
+        toast.error("Failed to empty bucket before deletion");
+      }
     } catch (error) {
-      console.log(error);
+      console.error(`Error deleting bucket ${bucketName}:`, error);
+      toast.error(`An error occurred: ${error.message}`);
     } finally {
-      setDeleting(false);
+      setDeleting(null);
     }
   };
 
@@ -127,7 +152,7 @@ const Buckets = () => {
 
   return (
     <Page title="Bucket List">
-      <Card>
+      <Card sectioned>
         {TableLoading ? (
           <div style={{ textAlign: "center", padding: "20px" }}>
             <Spinner size="large" />
@@ -136,6 +161,7 @@ const Buckets = () => {
           <DataTable
             columnContentTypes={["text", "text", "numeric"]}
             headings={["Name", "Creation Date", "Actions"]}
+
             rows={BucketsList?.map((bucket) => [
               bucket.Name,
               bucket.CreationDate,
@@ -162,7 +188,7 @@ const Buckets = () => {
           <p style={{ textAlign: "center", padding: "20px" }}>No Buckets Found</p>
         )}
 
-        <div style={{ margin: "2rem 0", textAlign: "right" }}>
+        <div style={{ margin: "1rem 0 0 0", textAlign: "right" }}>
           <Button primary onClick={handleLatestBackup}>Latest Backup</Button>
         </div>
       </Card>

@@ -12,6 +12,11 @@ export default function CreateBucket() {
     const [backupFrequency, setBackupFrequency] = useState('daily');
     const [backupTime, setBackupTime] = useState('00:00');
     const [Submitting, setSubmitting] = useState(false);
+    const [storeFetched, setstoreFetched] = useState(false)
+
+    useEffect(() => {
+        setstoreFetched(true)
+    }, [storeDetail])
 
     const handleBackupFrequencyChange = useCallback((value) => setBackupFrequency(value), []);
     const handleBackupTimeChange = useCallback((value) => setBackupTime(value), []);
@@ -117,9 +122,7 @@ export default function CreateBucket() {
                                 />
                             </div>
                         </div>
-                        <div style={{ marginTop: '1rem' }}>
-                            <Button primary onClick={handleSubmit} loading={Submitting} disabled={Submitting}>Set Schedule</Button>
-                        </div>
+                         
                     </Card>
                 </Layout.Section>
             </Layout>
