@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "60b4ffe9af147ac94a4a27d3d8cabd4e"
-application_url = "https://violin-balanced-warcraft-sublime.trycloudflare.com"
+application_url = "https://bracelets-purchases-seeks-v.trycloudflare.com"
 embedded = true
 name = "strox"
 handle = "strox"
@@ -19,9 +19,9 @@ scopes = "read_assigned_fulfillment_orders,read_cart_transforms,read_checkout_br
 
 [auth]
 redirect_urls = [
-  "https://violin-balanced-warcraft-sublime.trycloudflare.com/auth/callback",
-  "https://violin-balanced-warcraft-sublime.trycloudflare.com/auth/shopify/callback",
-  "https://violin-balanced-warcraft-sublime.trycloudflare.com/api/auth/callback"
+  "https://bracelets-purchases-seeks-v.trycloudflare.com/auth/callback",
+  "https://bracelets-purchases-seeks-v.trycloudflare.com/auth/shopify/callback",
+  "https://bracelets-purchases-seeks-v.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

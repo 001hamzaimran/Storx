@@ -27,7 +27,7 @@ const Buckets = () => {
     a.download = fileName;
     document.body.appendChild(a);
     a.click();
-    setTimeout(() => window.URL.revokeObjectURL(url), 5000);
+    setTimeout(() => window.URL.revokeObjectURL(url), 3000);
     document.body.removeChild(a);
   };
 
@@ -164,7 +164,7 @@ const Buckets = () => {
 
             rows={BucketsList?.map((bucket) => [
               bucket.Name,
-              bucket.CreationDate,
+              new Date(bucket.CreationDate).toLocaleDateString(),
               <div style={{ display: "flex", gap: "10px" }}>
                 <Tooltip content="View Files">
                   <Button plain onClick={() => handleView(bucket)}>
@@ -206,7 +206,7 @@ const Buckets = () => {
         >
           <Modal.Section>
             <TextContainer>
-              <p><strong>Creation Date:</strong> {selectedBucket.CreationDate}</p>
+              <p><strong>Creation Date:</strong> {new Date(selectedBucket.CreationDate).toLocaleDateString()}</p>
               <p><strong>Total Files:</strong> {fileLoading ? "Loading..." : fileList.length}</p>
             </TextContainer>
 
@@ -220,7 +220,7 @@ const Buckets = () => {
                 headings={["File Name", "Last Modified", "Size", "Download"]}
                 rows={fileList.map((file) => [
                   file.Key,
-                  new Date(file.LastModified).toLocaleString(),
+                  new Date(file.LastModified).toLocaleDateString(),
                   formatFileSize(file.Size),
                   <Button plain icon={ArrowDownMinor} onClick={() => handleDownloadfile(file.Key, selectedBucket.Name)} />,
                 ])}
@@ -236,3 +236,7 @@ const Buckets = () => {
 };
 
 export default Buckets;
+                       
+                       
+                       
+                        
