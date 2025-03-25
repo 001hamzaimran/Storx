@@ -169,7 +169,7 @@ export default function Index() {
       })
 
       const data = await response.json();
-      console.log("Set Credentials ", data)
+      console.log("Set Credentials ", data);
       if (data.success) {
         toast.success(data.message + " Redirecting ..", { duration: 3000 });
         setTimeout(() => {
