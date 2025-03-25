@@ -1,14 +1,10 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "60b4ffe9af147ac94a4a27d3d8cabd4e"
-application_url = "https://bracelets-purchases-seeks-v.trycloudflare.com"
+client_id = "919928440f659d0b04e8cc3458a364f1"
+application_url = "https://partially-rec-portuguese-ol.trycloudflare.com"
 embedded = true
-name = "strox"
-handle = "strox"
-
-[build]
-automatically_update_urls_on_dev = true
-include_config_on_deploy = true
+name = "storx-app"
+handle = "storx-app"
 
 [webhooks]
 api_version = "2025-01"
@@ -19,10 +15,14 @@ scopes = "read_assigned_fulfillment_orders,read_cart_transforms,read_checkout_br
 
 [auth]
 redirect_urls = [
-  "https://bracelets-purchases-seeks-v.trycloudflare.com/auth/callback",
-  "https://bracelets-purchases-seeks-v.trycloudflare.com/auth/shopify/callback",
-  "https://bracelets-purchases-seeks-v.trycloudflare.com/api/auth/callback"
+  "https://partially-rec-portuguese-ol.trycloudflare.com/auth/callback",
+  "https://partially-rec-portuguese-ol.trycloudflare.com/auth/shopify/callback",
+  "https://partially-rec-portuguese-ol.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
 embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true

@@ -15,6 +15,7 @@ export default function CreateBucket() {
     const [storeFetched, setstoreFetched] = useState(false)
 
     useEffect(() => {
+        console.log("User Redux", storeDetail)
         setstoreFetched(true)
     }, [storeDetail])
 
