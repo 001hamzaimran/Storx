@@ -3,7 +3,7 @@ import {
   retreiveMeta,
   retreiveOrders,
   // retreiveProduct,
-  retrieveAllProducts,
+  // retrieveAllProducts,
   retrieveBlogs,
   retrieveCustomCollection,
   retrieveCustomers,
@@ -31,7 +31,7 @@ prodRouter.get("/get_pages", retrievePages);
 prodRouter.get("/get_SmartCollection", retrieveSmartCollection);
 prodRouter.get("/get_CustomCollection", retrieveCustomCollection);
 prodRouter.get("/get_ordersList", retreiveOrders);
-prodRouter.get("/get_OrdersGQL", retrieveAllProducts)
+// prodRouter.get("/get_OrdersGQL", retrieveAllProducts)
 
 // Saving data in local
 // prodRouter.post("/save_products", saveProducts);

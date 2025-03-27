@@ -1,10 +1,13 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "919928440f659d0b04e8cc3458a364f1"
-application_url = "https://winter-evaluation-adapters-proceeds.trycloudflare.com"
+client_id = "7bb9acf7f7b2c6cf91adac22a01db9be"
+application_url = "https://efficiently-carol-finger-patterns.trycloudflare.com"
 embedded = true
 name = "storx-app"
 handle = "storx-app"
+
+[build]
+include_config_on_deploy = true
 
 [webhooks]
 api_version = "2025-01"
@@ -15,14 +18,10 @@ scopes = "read_assigned_fulfillment_orders,read_cart_transforms,read_checkout_br
 
 [auth]
 redirect_urls = [
-  "https://winter-evaluation-adapters-proceeds.trycloudflare.com/auth/callback",
-  "https://winter-evaluation-adapters-proceeds.trycloudflare.com/auth/shopify/callback",
-  "https://winter-evaluation-adapters-proceeds.trycloudflare.com/api/auth/callback"
+  "https://efficiently-carol-finger-patterns.trycloudflare.com/auth/callback",
+  "https://efficiently-carol-finger-patterns.trycloudflare.com/auth/shopify/callback",
+  "https://efficiently-carol-finger-patterns.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
 embedded = false
-
-[build]
-automatically_update_urls_on_dev = true
-include_config_on_deploy = true
