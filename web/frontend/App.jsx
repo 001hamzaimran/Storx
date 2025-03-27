@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setStoreDetail } from "./redux/slices/StoreSlice.js";
 import { setMeta, setProducts } from "./redux/slices/BackupSlice.js";
-import { saveBlog, saveCustomCollection, saveCustomer, saveMeta, saveOrders, savePages, saveProducts, saveSmartCollection, saveTheme } from "./pages/index.jsx";
+import { saveBlog, saveCustomCollection, saveCustomer, saveMeta, saveOrders, savePages, saveSmartCollection, saveTheme } from "./pages/index.jsx";
 import { Spinner } from "@shopify/polaris";
 export default function App() {
   const dispatch = useDispatch();
@@ -116,23 +116,23 @@ export default function App() {
     }
   };
 
-  const fetchProducts = async () => {
-    try {
-      const resp = await fetch("/api/get_products", { method: 'GET' });
-      const data = await resp.json();
-      const Prod = data.Products.data;
+  // const fetchProducts = async () => {
+  //   try {
+  //     const resp = await fetch("/api/get_products", { method: 'GET' });
+  //     const data = await resp.json();
+  //     const Prod = data.Products.data;
 
-      setProduct(Prod);
+  //     setProduct(Prod);
 
-      if (Prod.length > 0) {
-        console.log("Products ", Prod); // ✅ Log updated data
-        dispatch(setProducts(Prod));
-        saveProducts(Prod);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (Prod.length > 0) {
+  //       console.log("Products ", Prod); // ✅ Log updated data
+  //       dispatch(setProducts(Prod));
+  //       saveProducts(Prod);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const fetchMeta = async () => {
     try {

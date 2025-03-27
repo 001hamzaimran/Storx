@@ -2,7 +2,7 @@ import express from "express";
 import {
   retreiveMeta,
   retreiveOrders,
-  retreiveProduct,
+  // retreiveProduct,
   retrieveAllProducts,
   retrieveBlogs,
   retrieveCustomCollection,
@@ -16,13 +16,13 @@ import {
   saveMeta,
   saveOrders,
   savePages,
-  saveProducts,
+  // saveProducts,
   saveSmartCollection,
   saveTheme,
 } from "../Controllers/productController.js";
 export const prodRouter = express.Router();
 
-prodRouter.get("/get_products", retreiveProduct);
+// prodRouter.get("/get_products", retreiveProduct);
 prodRouter.get("/get_meta", retreiveMeta);
 prodRouter.get("/get_customers", retrieveCustomers);
 prodRouter.get("/get_Blogs", retrieveBlogs);
@@ -34,7 +34,7 @@ prodRouter.get("/get_ordersList", retreiveOrders);
 prodRouter.get("/get_OrdersGQL", retrieveAllProducts)
 
 // Saving data in local
-prodRouter.post("/save_products", saveProducts);
+// prodRouter.post("/save_products", saveProducts);
 prodRouter.post("/save_Meta", saveMeta);
 prodRouter.post("/save_customers", saveCustomers);
 prodRouter.post("/save_Blog", saveBlogs);

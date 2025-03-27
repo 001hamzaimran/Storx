@@ -20,14 +20,14 @@ const safeJsonResponse = async (res, fetchFunction) => {
   }
 };
 
-export const retreiveProduct = async (req, res) => {
-  await safeJsonResponse(res, async () => {
-    const Products = await shopify.api.rest.Product.all({
-      session: res.locals.shopify.session,
-    });
-    return { Products: Products || [] };
-  });
-};
+// export const retreiveProduct = async (req, res) => {
+//   await safeJsonResponse(res, async () => {
+//     const Products = await shopify.api.rest.Product.all({
+//       session: res.locals.shopify.session,
+//     });
+//     return { Products: Products || [] };
+//   });
+// };
 
 export const retreiveMeta = async (req, res) => {
   await safeJsonResponse(res, async () => {
@@ -115,64 +115,64 @@ const saveJsonToFile = (filePath, data) => {
   }
 };
 
-export const saveProducts = async (req, res) => {
-  try {
-    const { Product } = req.body;
-    if (!Product || !Array.isArray(Product)) {
-      return res.status(400).json({ success: false, message: "Invalid Product data" });
-    }
+// export const saveProducts = async (req, res) => {
+//   try {
+//     const { Product } = req.body;
+//     if (!Product || !Array.isArray(Product)) {
+//       return res.status(400).json({ success: false, message: "Invalid Product data" });
+//     }
 
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
+//     const __filename = fileURLToPath(import.meta.url);
+//     const __dirname = path.dirname(__filename);
 
-    // Define file paths
-    const jsonFilePath = path.join(__dirname, "../data/products.json");
-    const csvFilePath = path.join(__dirname, "../data/products.csv");
+//     // Define file paths
+//     const jsonFilePath = path.join(__dirname, "../data/products.json");
+//     const csvFilePath = path.join(__dirname, "../data/products.csv");
 
-    // Save JSON file
-    try {
-      fs.writeFileSync(jsonFilePath, JSON.stringify(Product, null, 2));
-    } catch (jsonError) {
-      console.error("Error saving JSON file:", jsonError);
-      return res.status(500).json({ success: false, error: "Failed to save JSON file", details: jsonError.message });
-    }
+//     // Save JSON file
+//     try {
+//       fs.writeFileSync(jsonFilePath, JSON.stringify(Product, null, 2));
+//     } catch (jsonError) {
+//       console.error("Error saving JSON file:", jsonError);
+//       return res.status(500).json({ success: false, error: "Failed to save JSON file", details: jsonError.message });
+//     }
 
-    // Transform products into CSV format
-    const formattedProducts = Product.map(product => ({
-      Title: product.title,
-      "URL handle": product.handle,
-      Description: product.body_html ? product.body_html.replace(/<[^>]*>?/gm, '') : '', // Remove HTML tags
-      Vendor: product.vendor || '',
-      "Product category": product.product_type || '',
-      Type: product.product_type || '',
-      Tags: product.tags || '',
-      "Published on online store": product.published_scope === "global",
-      Status: product.status || '',
-      SKU: product.variants?.[0]?.sku || '',
-      Price: product.variants?.[0]?.price || '',
-      "Inventory quantity": product.variants?.[0]?.inventory_quantity || 0,
-      "Product image URL": product.images?.[0]?.src || '',
-      "Variant image URL": product.variants?.[0]?.image_id 
-        ? product.images.find(img => img.id === product.variants?.[0]?.image_id)?.src 
-        : ''
-    }));
+//     // Transform products into CSV format
+//     const formattedProducts = Product.map(product => ({
+//       Title: product.title,
+//       "URL handle": product.handle,
+//       Description: product.body_html ? product.body_html.replace(/<[^>]*>?/gm, '') : '', // Remove HTML tags
+//       Vendor: product.vendor || '',
+//       "Product category": product.product_type || '',
+//       Type: product.product_type || '',
+//       Tags: product.tags || '',
+//       "Published on online store": product.published_scope === "global",
+//       Status: product.status || '',
+//       SKU: product.variants?.[0]?.sku || '',
+//       Price: product.variants?.[0]?.price || '',
+//       "Inventory quantity": product.variants?.[0]?.inventory_quantity || 0,
+//       "Product image URL": product.images?.[0]?.src || '',
+//       "Variant image URL": product.variants?.[0]?.image_id 
+//         ? product.images.find(img => img.id === product.variants?.[0]?.image_id)?.src 
+//         : ''
+//     }));
 
-    // Convert to CSV and save
-    try {
-      const json2csvParser = new Parser();
-      const csv = json2csvParser.parse(formattedProducts);
-      fs.writeFileSync(csvFilePath, csv);
-    } catch (csvError) {
-      console.error("Error writing CSV file:", csvError);
-      return res.status(500).json({ success: false, error: "Failed to save CSV file", details: csvError.message });
-    }
+//     // Convert to CSV and save
+//     try {
+//       const json2csvParser = new Parser();
+//       const csv = json2csvParser.parse(formattedProducts);
+//       fs.writeFileSync(csvFilePath, csv);
+//     } catch (csvError) {
+//       console.error("Error writing CSV file:", csvError);
+//       return res.status(500).json({ success: false, error: "Failed to save CSV file", details: csvError.message });
+//     }
 
-    return res.json({ success: true, message: "Products saved successfully!" });
-  } catch (error) {
-    console.error("Unexpected error saving products:", error);
-    return res.status(500).json({ success: false, error: "Unexpected failure", details: error.message });
-  }
-};
+//     return res.json({ success: true, message: "Products saved successfully!" });
+//   } catch (error) {
+//     console.error("Unexpected error saving products:", error);
+//     return res.status(500).json({ success: false, error: "Unexpected failure", details: error.message });
+//   }
+// };
 
 export const saveMeta = async (req, res) => {
   try {

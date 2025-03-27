@@ -5,23 +5,23 @@ import { useNavigate } from 'react-router-dom';
 import toast from "react-hot-toast";
 
 
-export const saveProducts = async (products) => {
-  try {
-    const response = await fetch("/api/save_products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ Product: products }),
-    });
+// export const saveProducts = async (products) => {
+//   try {
+//     const response = await fetch("/api/save_products", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ Product: products }),
+//     });
 
-    const text = await response.text(); // Read as text first
-    console.log("Raw response:", text);
+//     const text = await response.text(); // Read as text first
+//     console.log("Raw response:", text);
 
-    const result = JSON.parse(text); // Now parse as JSON
-    console.log("Save Response:", result);
-  } catch (error) {
-    console.log("Error saving products:", error);
-  }
-};
+//     const result = JSON.parse(text); // Now parse as JSON
+//     console.log("Save Response:", result);
+//   } catch (error) {
+//     console.log("Error saving products:", error);
+//   }
+// };
 
 export const saveCustomer = async (customerss) => {
   try {
