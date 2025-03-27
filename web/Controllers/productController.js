@@ -405,3 +405,72 @@ export const saveOrders = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
+export const retrieveAllProducts = async (req, res) => {
+  await safeJsonResponse(res, async () => {
+    const session = res.locals.shopify.session;
+    let allProducts = [];
+    let hasNextPage = true;
+    let cursor = null;
+
+    // We'll fetch 50 products per page; adjust as needed.
+    const pageSize = 50;
+
+    while (hasNextPage) {
+      const query = `
+        query getProducts($first: Int!, $after: String) {
+          products(first: $first, after: $after) {
+            edges {
+              node {
+                id
+                title
+                descriptionHtml
+                onlineStoreUrl
+                variants(first: 5) {
+                  edges {
+                    node {
+                      id
+                      title
+                      price
+                    }
+                  }
+                }
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      `;
+
+      const variables = {
+        first: pageSize,
+        after: cursor,
+      };
+
+      const response = await shopify.api.graphql({
+        session,
+        data: { query, variables },
+      });
+
+      const productsData = response.body.data.products;
+      const products = productsData.edges.map(edge => edge.node);
+      allProducts = allProducts.concat(products);
+
+      // Update the cursor for the next page and check if there are more pages.
+      hasNextPage = productsData.pageInfo.hasNextPage;
+      cursor = productsData.pageInfo.endCursor;
+    }
+
+    return { products: allProducts };
+  });
+};

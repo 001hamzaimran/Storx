@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "919928440f659d0b04e8cc3458a364f1"
-application_url = "https://partially-rec-portuguese-ol.trycloudflare.com"
+application_url = "https://winter-evaluation-adapters-proceeds.trycloudflare.com"
 embedded = true
 name = "storx-app"
 handle = "storx-app"
@@ -15,9 +15,9 @@ scopes = "read_assigned_fulfillment_orders,read_cart_transforms,read_checkout_br
 
 [auth]
 redirect_urls = [
-  "https://partially-rec-portuguese-ol.trycloudflare.com/auth/callback",
-  "https://partially-rec-portuguese-ol.trycloudflare.com/auth/shopify/callback",
-  "https://partially-rec-portuguese-ol.trycloudflare.com/api/auth/callback"
+  "https://winter-evaluation-adapters-proceeds.trycloudflare.com/auth/callback",
+  "https://winter-evaluation-adapters-proceeds.trycloudflare.com/auth/shopify/callback",
+  "https://winter-evaluation-adapters-proceeds.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

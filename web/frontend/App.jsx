@@ -15,7 +15,8 @@ import { Spinner } from "@shopify/polaris";
 export default function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [Products, setProduct] = useState([]);
+  const [Products, setProduct] = useState([])
+  const [storefetched, setStorefetch] = useState([]);
 
 
   const storefetch = async () => {
@@ -32,20 +33,9 @@ export default function App() {
 
       if (response.ok) {
         const store = data.Store
+        setStorefetch(store)
         dispatch(setStoreDetail(store));
       }
-
-      await Promise.allSettled([
-        fetchProducts(),
-        fetchMeta(),
-        fetchCustomers(),
-        fetchBlogs(),
-        fetchTheme(),
-        fetchPage(),
-        fetchSmartCollection(),
-        fetchCustomCollection(),
-        fetchOrders(),
-      ]);
 
     } catch (error) {
       console.log(error)
@@ -54,6 +44,18 @@ export default function App() {
     }
   }
 
+  useEffect(() => {
+    Promise.all([
+      // fetchProducts(),
+      fetchMeta(),
+      fetchCustomers(),
+      fetchBlogs(),
+      fetchTheme(),
+      fetchPage(),
+      fetchSmartCollection(),
+      fetchCustomCollection(),
+      fetchOrders(),]).catch(err => console.log(err));
+  }, [storefetched])
 
   const fetchCustomCollection = async () => {
     try {

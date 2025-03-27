@@ -19,6 +19,10 @@ const Buckets = () => {
       ListBuckets();
     }
   }, [storeDetail]);
+  useEffect(() => {
+    get_OrdersGQL();
+
+  }, [])
 
   const downloadFile = (blob, fileName) => {
     const url = window.URL.createObjectURL(blob);
@@ -150,6 +154,19 @@ const Buckets = () => {
     ListFiles(latestBucket.Name);
   };
 
+
+  const get_OrdersGQL = async () => {
+    try {
+      const response = await fetch(`/api/get_OrdersGQL`, { method: "GET" });
+      const data = await response.json();
+      console.log("get_OrdersGQL", data);
+    } catch (error) {
+      toast.error("Error fetching bucket list, reload the page.");
+      console.error("Error fetching bucket list:", error);
+    }
+  }
+
+
   return (
     <Page title="Bucket List">
       <Card sectioned>
@@ -236,7 +253,6 @@ const Buckets = () => {
 };
 
 export default Buckets;
-                       
-                       
-                       
-                        
+
+
+
