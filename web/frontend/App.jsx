@@ -46,7 +46,7 @@ export default function App() {
 
   useEffect(() => {
     Promise.all([
-      // fetchProducts(),
+      fetchProducts(),
       fetchMeta(),
       fetchCustomers(),
       fetchBlogs(),
@@ -63,7 +63,7 @@ export default function App() {
         method: "GET",
       });
       const data = await response.json();
-      const CustomCollection = data.CustomCollection.data;
+      const CustomCollection = await data.CustomCollection.data;
 
       if (CustomCollection.length > 0) {
         console.log("Custom Collection  ", CustomCollection);

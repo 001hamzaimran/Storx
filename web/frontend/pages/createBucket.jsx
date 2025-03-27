@@ -39,7 +39,7 @@ export default function CreateBucket() {
                     })
                 }
             )
-            const data = await response.json()
+            const data = await response.json();
             console.log("Bucket", data);
         } catch (error) {
             console.log("Errore ", error)
